@@ -19,22 +19,20 @@ export default function CardItem({ tab }: { tab: FavoriteTab }) {
         hover:-translate-y-2 hover:shadow-2xl text-center
       "
     >
-      <div className="flex justify-center w-full" >
+      <div className="flex justify-center w-full">
         <div className={isClean ? "w-52 h-32" : "w-20 h-20"}>
-            {tab.iconDark ? (
-            // Tem versão dark - mostra uma ou outra
+          {tab.iconDark ? (
             <>
-                <img className="dark:hidden w-full h-full object-contain" src={tab.icon} alt="" />
-                <img className="hidden dark:block w-full h-full object-contain" src={tab.iconDark} alt="" />
+              <img className="dark:hidden w-full h-full object-contain" src={tab.icon} alt="" />
+              <img className="hidden dark:block w-full h-full object-contain" src={tab.iconDark} alt="" />
             </>
-            ) : (
-            // Não tem versão dark - usa filtro CSS
+          ) : (
             <img
-                className="w-full h-full object-contain dark:invert dark:brightness-0 dark:contrast-200"
-                src={tab.icon}
-                alt=""
+              className="w-full h-full object-contain dark:invert dark:brightness-0 dark:contrast-200"
+              src={tab.icon}
+              alt=""
             />
-            )}
+          )}
         </div>
       </div>
       {!isClean && (

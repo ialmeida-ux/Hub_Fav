@@ -4,7 +4,10 @@
 
 @theme {
   --color-scheme: light dark;
-}
+  --breakpoint-notebook: 1366px;
+  --breakpoint-desktop: 1920px;
+  --breakpoint-monitor-xl: 2560px;
+} 
 
 @media (prefers-color-scheme: dark) {
   :root {
