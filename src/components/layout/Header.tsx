@@ -1,12 +1,11 @@
 import { useTheme, type ThemeMode } from "../theme/ThemeProvider";
-import { Link, useLocation } from "react-router-dom";
 import { Sun, Moon, Monitor, Settings } from "lucide-react";
 import { useState } from "react";
 import SettingsModal from "./SettingsModal";
+import { NavLink } from "react-router"
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
-  const location = useLocation();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const getThemeIcon = () => {
@@ -34,46 +33,46 @@ export default function Header() {
       <div className="flex items-center gap-4 px-6 py-3 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg rounded-full border border-gray-200 dark:border-gray-700 shadow-lg">
         {/* Navigation Links */}
         <nav className="flex items-center gap-2">
-          <Link
+          <NavLink
             to="/"
-            className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
-              location.pathname === "/"
+            className={({ isActive }) => `px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+              isActive
                 ? "bg-blue-500 text-white shadow-md"
                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
             }`}
           >
             Favoritos
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/youtube"
-            className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
-              location.pathname === "/youtube"
+            className={({ isActive }) => `px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+              isActive
                 ? "bg-blue-500 text-white shadow-md"
                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
             }`}
           >
             YouTube
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/fixados"
-            className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
-              location.pathname === "/fixados"
+            className={({ isActive }) => `px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+              isActive
                 ? "bg-blue-500 text-white shadow-md"
                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
             }`}
           >
             Fixados
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/jogos"
-            className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
-              location.pathname === "/jogos"
+            className={({ isActive }) => `px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+              isActive
                 ? "bg-blue-500 text-white shadow-md"
                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
             }`}
           >
             Jogos
-          </Link>
+          </NavLink>
         </nav>
 
         {/* Divider */}
