@@ -1,3 +1,4 @@
+import { useState } from "react";
 import BackgroundBlur from "../layout/BackgroundBlur";
 import Container from "../layout/Container";
 
@@ -71,7 +72,101 @@ const shoppingLinks: PinnedLink[] = [
   },
 ];
 
+const leagueRandomLinks: PinnedLink[] = [
+  {
+    id: "1",
+    title: "League Wiki - Yuumi",
+    url: "https://wiki.leagueoflegends.com/en-us/Yuumi",
+    preview: "https://www.google.com/s2/favicons?domain=leagueoflegends.com&sz=128",
+    description: "Página do Wiki oficial de League - Yuumi",
+  },
+  {
+    id: "2",
+    title: "Slash Art Duo Yuumi Shiba",
+    url: "https://wiki.leagueoflegends.com/en-us/images/Yuumi_ShibaSkin.jpg",
+    preview: "https://www.google.com/s2/favicons?domain=leagueoflegends.com&sz=128",
+    description: "Splash art de Yuumi Shiba",
+  },
+  {
+    id: "3",
+    title: "Slash Art Duo Yuumi Yuubee",
+    url: "https://wiki.leagueoflegends.com/en-us/images/Yuumi_YuubeeSkin.jpg",
+    preview: "https://www.google.com/s2/favicons?domain=leagueoflegends.com&sz=128",
+    description: "Splash art de Yuumi Yuubee",
+  },
+  {
+    id: "4",
+    title: "Riot API - Data Dragon",
+    url: "https://developer.riotgames.com/docs/lol#data-dragon",
+    preview: "https://www.google.com/s2/favicons?domain=riotgames.com&sz=128",
+    description: "Documentação Data Dragon da Riot Games",
+  },
+  {
+    id: "5",
+    title: "Riot Developer APIs",
+    url: "https://developer.riotgames.com/apis",
+    preview: "https://www.google.com/s2/favicons?domain=riotgames.com&sz=128",
+    description: "Portal de APIs da Riot Games",
+  },
+];
+
+const pixelArtLinks: PinnedLink[] = [
+  {
+    id: "1",
+    title: "Pixel Art Tutorial 1",
+    url: "https://www.youtube.com/watch?v=f8AGVBXJbnI",
+    preview: "https://www.google.com/s2/favicons?domain=youtube.com&sz=128",
+    description: "Tutorial de Pixel Art no YouTube",
+  },
+  {
+    id: "2",
+    title: "Pixel Art Tutorial 2",
+    url: "https://www.youtube.com/watch?v=L2otJkzjOuo",
+    preview: "https://www.google.com/s2/favicons?domain=youtube.com&sz=128",
+    description: "Tutorial de Pixel Art no YouTube",
+  },
+  {
+    id: "3",
+    title: "Pixel Art Tutorial 3",
+    url: "https://www.youtube.com/watch?v=EU-CjsHg_XQ",
+    preview: "https://www.google.com/s2/favicons?domain=youtube.com&sz=128",
+    description: "Tutorial de Pixel Art no YouTube",
+  },
+];
+
+const webThreeDLinks: PinnedLink[] = [
+  {
+    id: "1",
+    title: "Meshy - 3D Resources",
+    url: "https://www.meshy.ai/pt-BR/discover",
+    preview: "https://www.google.com/s2/favicons?domain=meshy.ai&sz=128",
+    description: "Meshy - Recursos e descoberta de 3D",
+  },
+  {
+    id: "2",
+    title: "NASA 3D - Asteroide 1999 RQ36",
+    url: "https://science.nasa.gov/3d-resources/1999-rq36-asteroid/",
+    preview: "https://www.google.com/s2/favicons?domain=nasa.gov&sz=128",
+    description: "Recursos 3D do asteroide 1999 RQ36",
+  },
+];
+
 export default function PinnedLinksPage() {
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
+    viagens: true,
+    compras: true,
+    leagueRandom: true,
+    pixelArt: true,
+    web3d: true,
+  });
+
+  const toggleSection = (section: string) => {
+    setExpandedSections((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
+
   return (
     <div className="relative min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-700">
       <BackgroundBlur />
@@ -79,10 +174,25 @@ export default function PinnedLinksPage() {
         <div className="mt-25 desktop:mt-0 max-w-6xl mx-auto px-4 py-8">
           {/* Seção Viagens */}
           <section className="mb-12">
-            <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+            <button
+              onClick={() => toggleSection("viagens")}
+              className="w-full flex items-center gap-3 text-3xl font-bold text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              <span
+                className={`text-sm inline-flex transition-transform duration-300 ${
+                  expandedSections.viagens ? "rotate-0" : "-rotate-90"
+                }`}
+              >
+                ▼
+              </span>
               Viagens
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </button>
+            <div
+              className={`overflow-hidden transition-all duration-300 ${
+                expandedSections.viagens ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+              }`}
+            >
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {travelLinks.map((link) => (
                 <a
                   key={link.id}
@@ -117,47 +227,238 @@ export default function PinnedLinksPage() {
                 </a>
               ))}
             </div>
+            </div>
           </section>
 
           {/* Seção Compras */}
-          <section>
-            <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+          <section className="mb-12">
+            <button
+              onClick={() => toggleSection("compras")}
+              className="w-full flex items-center gap-3 text-3xl font-bold text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              <span
+                className={`text-sm inline-flex transition-transform duration-300 ${
+                  expandedSections.compras ? "rotate-0" : "-rotate-90"
+                }`}
+              >
+                ▼
+              </span>
               Compras
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {shoppingLinks.map((link) => (
-                <a
-                  key={link.id}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 p-4"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
-                      <img
-                        src={link.preview}
-                        alt={link.title}
-                        className="w-6 h-6 object-contain"
-                      />
-                    </div>
-                    
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-lg font-semibold mb-1 text-gray-800 dark:text-gray-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
-                        {link.title}
-                      </h3>
-                      {link.description && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                          {link.description}
+            </button>
+            <div
+              className={`overflow-hidden transition-all duration-300 ${
+                expandedSections.compras ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+              }`}
+            >
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {shoppingLinks.map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 p-4"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+                        <img
+                          src={link.preview}
+                          alt={link.title}
+                          className="w-6 h-6 object-contain"
+                        />
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg font-semibold mb-1 text-gray-800 dark:text-gray-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
+                          {link.title}
+                        </h3>
+                        {link.description && (
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                            {link.description}
+                          </p>
+                        )}
+                        <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
+                          {link.url}
                         </p>
-                      )}
-                      <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
-                        {link.url}
-                      </p>
+                      </div>
                     </div>
-                  </div>
-                </a>
-              ))}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Seção Projeto League Random */}
+          <section className="mb-12">
+            <button
+              onClick={() => toggleSection("leagueRandom")}
+              className="w-full flex items-center gap-3 text-3xl font-bold text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              <span
+                className={`text-sm inline-flex transition-transform duration-300 ${
+                  expandedSections.leagueRandom ? "rotate-0" : "-rotate-90"
+                }`}
+              >
+                ▼
+              </span>
+              Projeto League Random
+            </button>
+            <div
+              className={`overflow-hidden transition-all duration-300 ${
+                expandedSections.leagueRandom ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+              }`}
+            >
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {leagueRandomLinks.map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 p-4"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+                        <img
+                          src={link.preview}
+                          alt={link.title}
+                          className="w-6 h-6 object-contain"
+                        />
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg font-semibold mb-1 text-gray-800 dark:text-gray-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
+                          {link.title}
+                        </h3>
+                        {link.description && (
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                            {link.description}
+                          </p>
+                        )}
+                        <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
+                          {link.url}
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Seção Pixel Art */}
+          <section className="mb-12">
+            <button
+              onClick={() => toggleSection("pixelArt")}
+              className="w-full flex items-center gap-3 text-3xl font-bold text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              <span
+                className={`text-sm inline-flex transition-transform duration-300 ${
+                  expandedSections.pixelArt ? "rotate-0" : "-rotate-90"
+                }`}
+              >
+                ▼
+              </span>
+              Pixel Art
+            </button>
+            <div
+              className={`overflow-hidden transition-all duration-300 ${
+                expandedSections.pixelArt ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+              }`}
+            >
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {pixelArtLinks.map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 p-4"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+                        <img
+                          src={link.preview}
+                          alt={link.title}
+                          className="w-6 h-6 object-contain"
+                        />
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg font-semibold mb-1 text-gray-800 dark:text-gray-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
+                          {link.title}
+                        </h3>
+                        {link.description && (
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                            {link.description}
+                          </p>
+                        )}
+                        <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
+                          {link.url}
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Seção 3D na Web */}
+          <section>
+            <button
+              onClick={() => toggleSection("web3d")}
+              className="w-full flex items-center gap-3 text-3xl font-bold text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              <span
+                className={`text-sm inline-flex transition-transform duration-300 ${
+                  expandedSections.web3d ? "rotate-0" : "-rotate-90"
+                }`}
+              >
+                ▼
+              </span>
+              3D na Web
+            </button>
+            <div
+              className={`overflow-hidden transition-all duration-300 ${
+                expandedSections.web3d ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+              }`}
+            >
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {webThreeDLinks.map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 p-4"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+                        <img
+                          src={link.preview}
+                          alt={link.title}
+                          className="w-6 h-6 object-contain"
+                        />
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg font-semibold mb-1 text-gray-800 dark:text-gray-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
+                          {link.title}
+                        </h3>
+                        {link.description && (
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                            {link.description}
+                          </p>
+                        )}
+                        <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
+                          {link.url}
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
             </div>
           </section>
         </div>
