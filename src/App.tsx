@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router'
 import FavoriteTabs from './components/pages/FavoriteTabsPage.tsx'
 import YouTubePlayerPage from './components/pages/YouTubePlayerPage.tsx'
 import PinnedLinksPage from './components/pages/PinnedLinksPage.tsx'
