@@ -1,15 +1,8 @@
 import BackgroundBlur from "../layout/BackgroundBlur";
 import Container from "../layout/Container";
-import { Link } from "react-router-dom";
+import CardImage, { type GameCardProps } from "../cards/CardImage";
 
-interface Game {
-  id: string;
-  title: string;
-  url: string;
-  image: string;
-}
-
-const games: Game[] = [
+const games: GameCardProps[] = [
   {
     id: "1",
     title: "Terraria",
@@ -33,27 +26,7 @@ export default function GamesPage() {
           <div className="flex justify-center">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
               {games.map((game) => (
-                <Link
-                  key={game.id}
-                  to={game.url}
-                  className="
-                    group relative h-64 rounded-3xl 
-                    bg-white/60 dark:bg-gray-500/15
-                    backdrop-blur-xl
-                    flex flex-col justify-center
-                    shadow-lg transition-all duration-500
-                    hover:-translate-y-2 hover:shadow-2xl
-                    overflow-hidden
-                  "
-                >
-                  <div className="absolute inset-0 rounded-3xl overflow-hidden">
-                    <img
-                      className="w-full h-full object-cover"
-                      src={game.image}
-                      alt={game.title}
-                    />
-                  </div>
-                </Link>
+                <CardImage key={game.id} game={game} />
               ))}
             </div>
           </div>

@@ -1,16 +1,9 @@
 import { useState } from "react";
 import BackgroundBlur from "../layout/BackgroundBlur";
 import Container from "../layout/Container";
+import CardClean, { type PinnedLinkCardProps } from "../cards/CardClean";
 
-interface PinnedLink {
-  id: string;
-  title: string;
-  url: string;
-  preview: string;
-  description?: string;
-}
-
-const travelLinks: PinnedLink[] = [
+const travelLinks: PinnedLinkCardProps[] = [
   {
     id: "1",
     title: "Voo Rio-Penha 30/04-09/05",
@@ -27,7 +20,7 @@ const travelLinks: PinnedLink[] = [
   },
 ];
 
-const shoppingLinks: PinnedLink[] = [
+const shoppingLinks: PinnedLinkCardProps[] = [
   {
     id: "1",
     title: "Desodorante Natura Homem 100ml",
@@ -72,7 +65,7 @@ const shoppingLinks: PinnedLink[] = [
   },
 ];
 
-const leagueRandomLinks: PinnedLink[] = [
+const leagueRandomLinks: PinnedLinkCardProps[] = [
   {
     id: "1",
     title: "League Wiki - Yuumi",
@@ -110,7 +103,7 @@ const leagueRandomLinks: PinnedLink[] = [
   },
 ];
 
-const pixelArtLinks: PinnedLink[] = [
+const pixelArtLinks: PinnedLinkCardProps[] = [
   {
     id: "1",
     title: "Pixel Art Tutorial 1",
@@ -134,7 +127,7 @@ const pixelArtLinks: PinnedLink[] = [
   },
 ];
 
-const webThreeDLinks: PinnedLink[] = [
+const webThreeDLinks: PinnedLinkCardProps[] = [
   {
     id: "1",
     title: "Meshy - 3D Resources",
@@ -167,300 +160,47 @@ export default function PinnedLinksPage() {
     }));
   };
 
+  const sections = [
+    { key: "viagens", title: "Viagens", links: travelLinks },
+    { key: "compras", title: "Compras", links: shoppingLinks },
+    { key: "leagueRandom", title: "Projeto League Random", links: leagueRandomLinks },
+    { key: "pixelArt", title: "Pixel Art", links: pixelArtLinks },
+    { key: "web3d", title: "3D na Web", links: webThreeDLinks },
+  ] as const;
+
   return (
     <div className="relative min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-700">
       <BackgroundBlur />
       <Container>
         <div className="mt-25 desktop:mt-0 max-w-6xl mx-auto px-4 py-8">
-          {/* Seção Viagens */}
-          <section className="mb-12">
-            <button
-              onClick={() => toggleSection("viagens")}
-              className="w-full flex items-center gap-3 text-3xl font-bold text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <span
-                className={`text-sm inline-flex transition-transform duration-300 ${
-                  expandedSections.viagens ? "rotate-0" : "-rotate-90"
-                }`}
+          {sections.map((section) => (
+            <section key={section.key} className="mb-12">
+              <button
+                onClick={() => toggleSection(section.key)}
+                className="w-full flex items-center gap-3 text-3xl font-bold text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
-                ▼
-              </span>
-              Viagens
-            </button>
-            <div
-              className={`overflow-hidden transition-all duration-300 ${
-                expandedSections.viagens ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-              }`}
-            >
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {travelLinks.map((link) => (
-                <a
-                  key={link.id}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 p-4"
+                <span
+                  className={`text-sm inline-flex transition-transform duration-300 ${
+                    expandedSections[section.key] ? "rotate-0" : "-rotate-90"
+                  }`}
                 >
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
-                      <img
-                        src={link.preview}
-                        alt={link.title}
-                        className="w-6 h-6 object-contain"
-                      />
-                    </div>
-                    
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-lg font-semibold mb-1 text-gray-800 dark:text-gray-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
-                        {link.title}
-                      </h3>
-                      {link.description && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                          {link.description}
-                        </p>
-                      )}
-                      <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
-                        {link.url}
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              ))}
-            </div>
-            </div>
-          </section>
-
-          {/* Seção Compras */}
-          <section className="mb-12">
-            <button
-              onClick={() => toggleSection("compras")}
-              className="w-full flex items-center gap-3 text-3xl font-bold text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <span
-                className={`text-sm inline-flex transition-transform duration-300 ${
-                  expandedSections.compras ? "rotate-0" : "-rotate-90"
+                  ▼
+                </span>
+                {section.title}
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-300 ${
+                  expandedSections[section.key] ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
-                ▼
-              </span>
-              Compras
-            </button>
-            <div
-              className={`overflow-hidden transition-all duration-300 ${
-                expandedSections.compras ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-              }`}
-            >
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {shoppingLinks.map((link) => (
-                  <a
-                    key={link.id}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 p-4"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
-                        <img
-                          src={link.preview}
-                          alt={link.title}
-                          className="w-6 h-6 object-contain"
-                        />
-                      </div>
-                      
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-semibold mb-1 text-gray-800 dark:text-gray-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
-                          {link.title}
-                        </h3>
-                        {link.description && (
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                            {link.description}
-                          </p>
-                        )}
-                        <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
-                          {link.url}
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                ))}
+                <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {section.links.map((link) => (
+                    <CardClean key={link.id} link={link} />
+                  ))}
+                </div>
               </div>
-            </div>
-          </section>
-
-          {/* Seção Projeto League Random */}
-          <section className="mb-12">
-            <button
-              onClick={() => toggleSection("leagueRandom")}
-              className="w-full flex items-center gap-3 text-3xl font-bold text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <span
-                className={`text-sm inline-flex transition-transform duration-300 ${
-                  expandedSections.leagueRandom ? "rotate-0" : "-rotate-90"
-                }`}
-              >
-                ▼
-              </span>
-              Projeto League Random
-            </button>
-            <div
-              className={`overflow-hidden transition-all duration-300 ${
-                expandedSections.leagueRandom ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-              }`}
-            >
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {leagueRandomLinks.map((link) => (
-                  <a
-                    key={link.id}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 p-4"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
-                        <img
-                          src={link.preview}
-                          alt={link.title}
-                          className="w-6 h-6 object-contain"
-                        />
-                      </div>
-                      
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-semibold mb-1 text-gray-800 dark:text-gray-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
-                          {link.title}
-                        </h3>
-                        {link.description && (
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                            {link.description}
-                          </p>
-                        )}
-                        <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
-                          {link.url}
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Seção Pixel Art */}
-          <section className="mb-12">
-            <button
-              onClick={() => toggleSection("pixelArt")}
-              className="w-full flex items-center gap-3 text-3xl font-bold text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <span
-                className={`text-sm inline-flex transition-transform duration-300 ${
-                  expandedSections.pixelArt ? "rotate-0" : "-rotate-90"
-                }`}
-              >
-                ▼
-              </span>
-              Pixel Art
-            </button>
-            <div
-              className={`overflow-hidden transition-all duration-300 ${
-                expandedSections.pixelArt ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-              }`}
-            >
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {pixelArtLinks.map((link) => (
-                  <a
-                    key={link.id}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 p-4"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
-                        <img
-                          src={link.preview}
-                          alt={link.title}
-                          className="w-6 h-6 object-contain"
-                        />
-                      </div>
-                      
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-semibold mb-1 text-gray-800 dark:text-gray-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
-                          {link.title}
-                        </h3>
-                        {link.description && (
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                            {link.description}
-                          </p>
-                        )}
-                        <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
-                          {link.url}
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Seção 3D na Web */}
-          <section>
-            <button
-              onClick={() => toggleSection("web3d")}
-              className="w-full flex items-center gap-3 text-3xl font-bold text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <span
-                className={`text-sm inline-flex transition-transform duration-300 ${
-                  expandedSections.web3d ? "rotate-0" : "-rotate-90"
-                }`}
-              >
-                ▼
-              </span>
-              3D na Web
-            </button>
-            <div
-              className={`overflow-hidden transition-all duration-300 ${
-                expandedSections.web3d ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-              }`}
-            >
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {webThreeDLinks.map((link) => (
-                  <a
-                    key={link.id}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 p-4"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
-                        <img
-                          src={link.preview}
-                          alt={link.title}
-                          className="w-6 h-6 object-contain"
-                        />
-                      </div>
-                      
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-semibold mb-1 text-gray-800 dark:text-gray-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
-                          {link.title}
-                        </h3>
-                        {link.description && (
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                            {link.description}
-                          </p>
-                        )}
-                        <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
-                          {link.url}
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </section>
+            </section>
+          ))}
         </div>
       </Container>
     </div>

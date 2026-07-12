@@ -1,6 +1,7 @@
 import { useState } from "react";
+import CardPlayer, { type VideoCardProps } from "../cards/CardPlayer";
 
-const videos = [
+const videos: Omit<VideoCardProps, "active" | "onSelect">[] = [
   { id: "Nc40WbWz8CE", title: "50/10 Pomodoro Timer with Pink Noise" },
   { id: "No-qb_uk-_E", title: "Video 2" },
   { id: "0w80F8FffQ4", title: "Video 3" },
@@ -13,7 +14,7 @@ export default function YouTubePlayerPage() {
 
   return (
     <div className="relative min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-700">
-      <div className="max-w-6xl mx-auto px-4 py-8 lg:pt-[100px]">
+      <div className="max-w-6xl mx-auto px-4 py-8 lg:pt-25">
         {/* Main Player */}
         <div className="mb-8">
           <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
@@ -34,22 +35,13 @@ export default function YouTubePlayerPage() {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {videos.map((video) => (
-             <div
+              <CardPlayer
                 key={video.id}
-                onClick={() => setCurrentVideoId(video.id)}
-                className={`cursor-pointer rounded-lg overflow-hidden transition-transform hover:scale-105 ${
-                  currentVideoId === video.id ? "ring-4 ring-blue-500" : ""
-                }`}
-              >
-                {/* Container com aspect ratio fixo */}
-                <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-                  <img
-                    src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
-                    alt={video.title}
-                    className="absolute top-0 left-0 w-full h-full object-cover"
-                  />
-                </div>             
-            </div>
+                id={video.id}
+                title={video.title}
+                active={currentVideoId === video.id}
+                onSelect={setCurrentVideoId}
+              />
             ))}
           </div>
         </div>

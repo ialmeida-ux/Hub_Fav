@@ -1,6 +1,5 @@
 import BackgroundBlur from "../layout/BackgroundBlur";
 import Container from "../layout/Container";
-import CardsGrid from "../cards/CardsGrid";
 import type { FavoriteTab } from "../cards/types.ts";
 import chatgptIcon from "../../assets/ChatGPT-Logo.svg";
 import claudeLightIcon from "../../assets/Claude-Light-Logo.png";
@@ -14,6 +13,7 @@ import tactiqLightIcon from "../../assets/Tactiq-Light-Logo.svg";
 import tactiqDarkIcon from "../../assets/Tactiq-Dark-Logo.svg";
 import boltIcon from "../../assets/Bolt-Logo.svg";
 import base44Icon from "../../assets/Base44-Logo.png";
+import CardIcon from "../cards/CardIcon.tsx";
 
 const tabs: FavoriteTab[] = [
   {
@@ -75,7 +75,11 @@ export default function FavoriteTabsPage() {
     <div className="relative min-h-screen mt-25 xl:mt-0 bg-gray-100 dark:bg-gray-900 transition-colors duration-700 ">
       <BackgroundBlur />
       <Container>
-        <CardsGrid tabs={tabs} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 desktop:gap-8 mt-25 desktop:mt-0">
+          {tabs.map((tab, index) => (
+            <CardIcon key={index} tab={tab} />
+          ))}
+        </div>
       </Container>
     </div>
   );
