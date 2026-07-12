@@ -1,4 +1,4 @@
-import type { FavoriteTab } from "./types.ts";
+import type { FavoriteTab } from "../common/types.ts";
 import CardIcon from "./CardIcon";
 
 export default function CardItem({ tab }: { tab: FavoriteTab }) {

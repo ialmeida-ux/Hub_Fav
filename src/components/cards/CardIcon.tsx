@@ -1,4 +1,4 @@
-import type { FavoriteTab } from "./types.ts";
+import type { FavoriteTab } from "../common/types.ts";
 import { useTheme } from "../theme/ThemeProvider";
 
 export default function CardIcon({ tab }: { tab: FavoriteTab }) {
@@ -21,7 +21,7 @@ export default function CardIcon({ tab }: { tab: FavoriteTab }) {
 						</>
 					) : (
 						<img
-							className="w-full h-full object-contain dark:invert dark:brightness-0 dark:contrast-200"
+							className={`w-full h-full object-contain ${tab.useWhiteFilter ? 'dark:invert dark:brightness-0 dark:contrast-200' : ''}`}
 							src={tab.icon}
 							alt=""
 						/>

@@ -52,31 +52,6 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     };
   }, [isOpen, onClose]);
 
-  const handleAddLink = (page: string, link: { title: string; url: string; preview: string }) => {
-    // TODO: Implementar lógica para adicionar link
-    console.log("Adicionar link:", { page, ...link });
-  };
-
-  const handleDeleteLink = (page: string, linkId: string) => {
-    // TODO: Implementar lógica para deletar link
-    console.log("Deletar link:", { page, linkId });
-  };
-
-  // Mock data - substituir por dados reais do context
-  const registeredLinks = {
-    favoritos: [
-      { id: "1", title: "ChatGPT", url: "https://chat.openai.com" },
-      { id: "2", title: "Claude", url: "https://claude.ai" },
-    ],
-    youtube: [
-      { id: "1", title: "Video 1", url: "https://www.youtube.com/watch?v=Nc40WbWz8CE" },
-      { id: "2", title: "Video 2", url: "https://www.youtube.com/watch?v=No-qb_uk-_E" },
-    ],
-    fixados: [
-      { id: "1", title: "Exemplo de Site", url: "https://example.com" },
-    ],
-  };
-
   const sidebarItems = [
     { id: "links" as SettingsSection, label: "Adicionar Links", icon: Plus },
     { id: "registered" as SettingsSection, label: "Links Cadastrados", icon: List },
@@ -99,7 +74,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       {/* Modal */}
       <div
         ref={modalRef}
-        className={`relative w-full lg:min-h-[70vh] min-h-[90vh] max-w-5xl m-4 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 ${
+        className={`top-[-5vh] md:top-[-10vh] lg:top-[-10vh] relative w-full lg:min-h-[70vh] min-h-[90vh] max-w-5xl m-4 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 ${
           isAnimating && isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95"
         } ${isOpen ? "pointer-events-auto" : "pointer-events-none"}`}
       >
@@ -137,10 +112,10 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 overflow-y-auto p-6">
-            {activeSection === "links" && <AddLinksTab onAddLink={handleAddLink} />}
+          <div className="flex-1 overflow-y-auto lg:min-h-[70vh] min-h-[90vh] max-h-[90vh] p-6">
+            {activeSection === "links" && <AddLinksTab />}
             {activeSection === "registered" && (
-              <RegisteredLinksTab links={registeredLinks} onDeleteLink={handleDeleteLink} />
+              <RegisteredLinksTab />
             )}
             {activeSection === "appearance" && <AppearanceTab />}
             {activeSection === "about" && <AboutTab />}
