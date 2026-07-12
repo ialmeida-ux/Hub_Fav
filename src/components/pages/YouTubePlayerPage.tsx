@@ -17,10 +17,10 @@ export default function YouTubePlayerPage() {
       <div className="max-w-6xl mx-auto px-4 py-8 lg:pt-25">
         {/* Main Player */}
         <div className="mb-8">
-          <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+          <div className="relative w-full aspect-video">
             <iframe
-              className="absolute top-0 left-0 w-full h-full rounded-lg shadow-2xl"
-              src={`https://www.youtube.com/embed/${currentVideoId}?autoplay=1`}
+              className="absolute inset-0 w-full h-full rounded-lg shadow-2xl"
+              src={`https://www.youtube.com/embed/${currentVideoId}?autoplay=1&controls=1`}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
